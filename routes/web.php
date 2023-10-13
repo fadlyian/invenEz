@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UserController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -39,6 +40,24 @@ Route::middleware('auth')->group(function () {
     Route::get('/admin', function(){
         return 'halaman admin';
     })->name('admin');
+
+    Route::prefix('product')->group(function(){
+        Route::get('/', function(){
+            return "ini halaman product";
+        });
+        Route::get('/edit', function(){
+            return "ini halaman edit product";
+        })->middleware(['permission:edit.products']);
+        Route::get('/delete', function(){
+            return "ini halaman delete product";
+        })->middleware(['permission:publish']);
+    });
+
+    Route::prefix('users')->group(function(){
+        Route::get('/', [UserController::class, 'index'])->middleware(['permission:product.view'])->name('user.view');
+        Route::get('/create', [UserController::class, 'create'])->middleware(['permission:product.view'])->name('user.create');
+        Route::post('/store', [UserController::class, 'store'])->middleware(['permission:product.view'])->name('user.store');
+    });
 });
 
 require __DIR__.'/auth.php';
