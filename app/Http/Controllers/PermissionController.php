@@ -90,6 +90,8 @@ class PermissionController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        Permission::findOrFail($id)->delete();
+
+        return to_route('permission.view');
     }
 }
