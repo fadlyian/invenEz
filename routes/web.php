@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -61,6 +62,16 @@ Route::middleware('auth')->group(function () {
         Route::put('/{edit}', [UserController::class, 'update'])->middleware(['permission:product.view'])->name('user.update');
         Route::delete('/{id}', [UserController::class, 'destroy'])->name('user.destroy');
         // Route::delete('/{id}', [UserController::class, 'destroy'])->name('user.destroy');
+    });
+
+    Route::prefix('roles')->group(function(){
+        Route::get('/', [RoleController::class, 'index'])->name('role.view');
+        Route::get('/create', [RoleController::class, 'create'])->name('role.create');
+        Route::post('/store', [RoleController::class, 'store'])->name('role.store');
+        Route::get('/{id}/edit', [RoleController::class, 'edit'])->name('role.edit');
+        Route::put('/{edit}', [RoleController::class, 'update'])->name('role.update');
+        Route::delete('/{id}', [RoleController::class, 'destroy'])->name('role.destroy');
+
     });
 });
 

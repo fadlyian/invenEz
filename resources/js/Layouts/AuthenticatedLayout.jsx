@@ -31,7 +31,7 @@ export default function Authenticated({ user, header, children }) {
                                     <summary className="m-1 btn">Admin</summary>
                                     <ul className="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52">
                                         <li><a href={route('user.view')}>Users</a></li>
-                                        <li><a>Roles</a></li>
+                                        <li><a href={route('role.view')}>Roles</a></li>
                                         <li><a>Permission</a></li>
                                     </ul>
                                 </details>
