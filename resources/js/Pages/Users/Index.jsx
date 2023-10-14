@@ -2,7 +2,7 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, router } from "@inertiajs/react";
 
 export default function User({ auth, users }) {
-    console.log(users);
+    // console.log(auth);
 
     // const {user, setUser, delete:destroy, errors} = useForm({
     //     id : "",
