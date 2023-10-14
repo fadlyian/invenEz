@@ -60,7 +60,9 @@ class PermissionController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        return Inertia::render('Permissions/Edit', [
+            'permissions' => Permission::findOrFail($id),
+        ]);
     }
 
     /**
@@ -68,7 +70,19 @@ class PermissionController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        try{
+            $request->validate([
+                'name' => 'required',
+            ]);
+
+            $p = Permission::findOrFail($id);
+            $p->name = $request->name;
+            $p->save();
+
+            return to_route('permission.view');
+        }catch(Exception $e){
+            return $e->getMessage();
+        }
     }
 
     /**
