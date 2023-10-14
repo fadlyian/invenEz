@@ -73,7 +73,12 @@ class UserController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        // $data = User::findOrfail($id);
+        return Inertia::render('Users/Edit', [
+            'user' => User::findOrFail($id),
+            'roles' => Role::all(),
+        ]);
+        // return "user dengan id = " . $data;
     }
 
     /**
@@ -81,7 +86,26 @@ class UserController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        try {
+            $request->validate([
+                'name' => 'required',
+                'email' => 'required',
+                'password' => 'required',
+                'role' => 'required',
+            ]);
+
+            $user = User::findOrFail($id);
+            $user->name = $request->name;
+            $user->email = $request->email;
+            $user->password = $request->password;
+            $user->assignRole($request->role);
+
+            $user->save();
+
+            return to_route('user.view');
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
     }
 
     /**
@@ -89,6 +113,8 @@ class UserController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        User::findOrFail($id)->delete();
+
+        return to_route('user.view');
     }
 }

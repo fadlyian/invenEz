@@ -57,6 +57,10 @@ Route::middleware('auth')->group(function () {
         Route::get('/', [UserController::class, 'index'])->middleware(['permission:product.view'])->name('user.view');
         Route::get('/create', [UserController::class, 'create'])->middleware(['permission:product.view'])->name('user.create');
         Route::post('/store', [UserController::class, 'store'])->middleware(['permission:product.view'])->name('user.store');
+        Route::get('/{id}/edit', [UserController::class, 'edit'])->middleware(['permission:product.view'])->name('user.edit');
+        Route::put('/{edit}', [UserController::class, 'update'])->middleware(['permission:product.view'])->name('user.update');
+        Route::delete('/{id}', [UserController::class, 'destroy'])->name('user.destroy');
+        // Route::delete('/{id}', [UserController::class, 'destroy'])->name('user.destroy');
     });
 });
 

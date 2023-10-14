@@ -1,8 +1,16 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { Head } from "@inertiajs/react";
+import { Head, router } from "@inertiajs/react";
 
 export default function User({ auth, users }) {
     console.log(users);
+
+    // const {user, setUser, delete:destroy, errors} = useForm({
+    //     id : "",
+    // });
+
+    // const handleDelete = (id) => {
+
+    // }
 
     return (
         <AuthenticatedLayout user={auth} header={<h2>Users</h2>}>
@@ -52,10 +60,18 @@ export default function User({ auth, users }) {
                                             <td>
                                                 <div className="flex gap-2 justify-center">
                                                     <button className="btn btn-warning">
-                                                        edit
+                                                        <a href={route('user.edit', user.id)}>edit</a>
                                                     </button>
-                                                    <button className="btn btn-error">
+                                                    <button className="btn btn-error"
+                                                        onClick={() => router.delete(route('user.destroy', user.id))}
+                                                        type="button"
+                                                    >
                                                         delete
+                                                        {/* <a href={route('user.destroy', user.id)}>delete</a> */}
+                                                        {/* <a href={`/users/${user.id}`}>delete</a> */}
+                                                        {/* <a href={() => {
+                                                            deleteUser(user.id)
+                                                        }}>delete</a> */}
                                                     </button>
                                                 </div>
                                             </td>
