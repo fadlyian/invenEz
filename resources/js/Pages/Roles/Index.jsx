@@ -66,7 +66,7 @@ export default function Index({ auth, roles }) {
                                         {/* MODAL DELETE */}
                                         <dialog id="my_modal_2" className="modal">
                                             <div className="modal-box">
-                                                <h3 className="font-bold text-lg">Are you sure you want to delete this role {role.name}?</h3>
+                                                <h3 className="font-bold text-lg">Are you sure you want to delete this role "{role.name}"?</h3>
                                                 {/* <p className="py-4">Are you sure you want to delete this role?</p> */}
                                                 <div className="modal-action flex gap-10 justify-end">
                                                     <form method="dialog">
