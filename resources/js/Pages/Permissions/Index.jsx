@@ -41,6 +41,8 @@ export default function Index({ auth, permissions }) {
                                 {/* row 1 */}
                                 {permissions.map((p, index) => {
                                     return (
+                                        <>
+
                                         <tr key={index}>
                                             <th className="text-center">
                                                 {index + 1}
@@ -53,7 +55,7 @@ export default function Index({ auth, permissions }) {
                                                         <a href={route('permission.edit', p.id)}>edit</a>
                                                     </button>
                                                     <button className="btn btn-error"
-                                                        onClick={() => router.delete(route('permission.destroy', p.id))}
+                                                        onClick={() => document.getElementById('my_modal_2').showModal()}
                                                         type="button"
                                                     >
                                                         delete
@@ -61,6 +63,29 @@ export default function Index({ auth, permissions }) {
                                                 </div>
                                             </td>
                                         </tr>
+
+                                        {/* MODAL DELETE */}
+                                        <dialog id="my_modal_2" className="modal">
+                                            <div className="modal-box">
+                                                <h3 className="font-bold text-lg">Are you sure you want to delete this permission "{p.name}"?</h3>
+                                                {/* <p className="py-4">Are you sure you want to delete this permission?</p> */}
+                                                <div className="modal-action flex gap-10 justify-end">
+                                                    <form method="dialog">
+                                                        {/* if there is a button in form, it will close the modal */}
+                                                        <button className="btn btn-success">cancel</button>
+                                                    </form>
+                                                    <form method="dialog">
+                                                        <button className="btn btn-error"
+                                                            onClick={() => router.delete(route('permission.destroy', p.id))}
+                                                        >sure</button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                            <form method="dialog" className="modal-backdrop">
+                                                <button>close</button>
+                                            </form>
+                                        </dialog>
+                                        </>
                                     );
                                 })}
                             </tbody>
