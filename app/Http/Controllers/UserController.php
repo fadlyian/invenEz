@@ -6,6 +6,7 @@ use App\Http\Requests\UserRequest;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 use Spatie\Permission\Models\Role;
 
@@ -17,8 +18,13 @@ class UserController extends Controller
     public function index()
     {
         $data = User::all();
+        $user = Auth::user();
         return Inertia::render('Users/Index',[
             'users' => $data,
+            'can' => [
+                'edit' => fn() =>  $user->hasPermissionTo('user.edit'),
+                'delete' => fn() => $user->hasPermissionTo('user.delete'),
+            ],
         ]);
     }
 

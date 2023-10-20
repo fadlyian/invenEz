@@ -27,6 +27,18 @@ class PermissionSeeder extends Seeder
         Permission::create(['name' => 'product.publish']);
         Permission::create(['name' => 'product.unpublish']);
 
+        Permission::create(['name' => 'user.view']);
+        Permission::create(['name' => 'user.edit']);
+        Permission::create(['name' => 'user.delete']);
+
+        Permission::create(['name' => 'role.view']);
+        Permission::create(['name' => 'role.edit']);
+        Permission::create(['name' => 'role.delete']);
+
+        Permission::create(['name' => 'permission.view']);
+        Permission::create(['name' => 'permission.edit']);
+        Permission::create(['name' => 'permission.delete']);
+
         // create roles and assign existing permissions
         $role1 = Role::create(['name' => 'crew']);
         $role1->givePermissionTo('product.view');
@@ -35,6 +47,7 @@ class PermissionSeeder extends Seeder
         $role2->givePermissionTo('product.view');
         $role2->givePermissionTo('product.edit');
         $role2->givePermissionTo('product.delete');
+        $role2->givePermissionTo('user.view');
 
         $role3 = Role::create(['name' => 'Super-Admin']);
         $role3->givePermissionTo(Permission::all());

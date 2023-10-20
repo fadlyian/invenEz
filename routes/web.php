@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoleController;
@@ -28,9 +29,11 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+// Route::get('/dashboard', function () {
+    // return Inertia::render('Dashboard');
+// })->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::get('/dashboard', [DashboardController::class, 'dashboard'])->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     //profile
@@ -57,14 +60,14 @@ Route::middleware('auth')->group(function () {
 
     // USER
     Route::prefix('users')->group(function(){
-        Route::get('/', [UserController::class, 'index'])->middleware(['permission:product.view'])->name('user.view');
-        Route::get('/create', [UserController::class, 'create'])->middleware(['permission:product.view'])->name('user.create');
-        Route::post('/store', [UserController::class, 'store'])->middleware(['permission:product.view'])->name('user.store');
-        Route::get('/{id}/edit', [UserController::class, 'edit'])->middleware(['permission:product.view'])->name('user.edit');
-        Route::put('/{edit}', [UserController::class, 'update'])->middleware(['permission:product.view'])->name('user.update');
+        Route::get('/', [UserController::class, 'index'])->name('user.view');
+        Route::get('/create', [UserController::class, 'create'])->name('user.create');
+        Route::post('/store', [UserController::class, 'store'])->name('user.store');
+        Route::get('/{id}/edit', [UserController::class, 'edit'])->name('user.edit');
+        Route::put('/{edit}', [UserController::class, 'update'])->name('user.update');
         Route::delete('/{id}', [UserController::class, 'destroy'])->name('user.destroy');
         // Route::delete('/{id}', [UserController::class, 'destroy'])->name('user.destroy');
-    });
+    })->middleware(['permission:user.view']);
 
     // ROLE
     Route::prefix('roles')->group(function(){
@@ -74,7 +77,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/{id}/edit', [RoleController::class, 'edit'])->name('role.edit');
         Route::put('/{edit}', [RoleController::class, 'update'])->name('role.update');
         Route::delete('/{id}', [RoleController::class, 'destroy'])->name('role.destroy');
-    });
+    })->middleware('permission:role.view');
 
     // PERMISSION
     Route::prefix('permissions')->group(function(){
@@ -84,7 +87,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/{id}/edit', [PermissionController::class, 'edit'])->name('permission.edit');
         Route::put('/{edit}', [PermissionController::class, 'update'])->name('permission.update');
         Route::delete('/{id}', [PermissionController::class, 'destroy'])->name('permission.destroy');
-    });
+    })->middleware('permission:permission.view');
 });
 
 require __DIR__.'/auth.php';

@@ -1,8 +1,8 @@
+import ButtonCreate from "@/Components/ButtonCreate";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, router } from "@inertiajs/react";
 
-export default function User({ auth, users }) {
-
+export default function User({ auth, users, can }) {
     return (
         <AuthenticatedLayout user={auth} header={<h2>Users</h2>}>
             <Head title="Users" />
@@ -10,11 +10,16 @@ export default function User({ auth, users }) {
                 <div className="p-6 bg-white overflow-hidden shadow-sm sm:rounded-lg">
                     {/* button create users */}
                     <div className="mb-4">
-                        <button className="btn btn-success">
-                            <a href={route("user.create")}>
+                        {can.edit && (
+                            // <button className="btn btn-success border-none hover:bg-emerald-300 hover:border-none">
+                            //     <a href={route("user.create")}>
+                            //         create new user
+                            //     </a>
+                            // </button>
+                            <ButtonCreate href={route('user.create')}>
                                 create new user
-                            </a>
-                        </button>
+                            </ButtonCreate>
+                        )}
                     </div>
                     <div className="overflow-x-auto">
                         <table className="table table-zebra">
@@ -24,7 +29,9 @@ export default function User({ auth, users }) {
                                     <th className="text-center">No</th>
                                     <th>Name</th>
                                     <th>Job</th>
-                                    <th className="text-center">Action</th>
+                                    {(can.delete || can.edit) && (
+                                        <th className="text-center">Action</th>
+                                    )}
                                 </tr>
                             </thead>
                             <tbody>
@@ -41,15 +48,20 @@ export default function User({ auth, users }) {
                                             <td>
                                                 {/* <div className="flex gap-2 justify-center"> */}
                                                 <div className={`flex gap-2 justify-center ${user.name == "Super-Admin" ? "hidden" : ""}`}>
-                                                    <button className="btn btn-warning">
-                                                        <a href={route('user.edit', user.id)}>edit</a>
-                                                    </button>
-                                                    <button className="btn btn-error"
-                                                        onClick={() => document.getElementById('my_modal_2').showModal()}
-                                                        type="button"
-                                                    >
-                                                        delete
-                                                    </button>
+                                                    {can.edit && (
+                                                        <button className="btn btn-warning">
+                                                            <a href={route('user.edit', user.id)}>edit</a>
+                                                        </button>
+                                                    )}
+                                                    {can.delete && (
+                                                        <button className="btn btn-error"
+                                                            onClick={() => document.getElementById('my_modal_2').showModal()}
+                                                            type="button"
+                                                        >
+                                                            delete
+                                                        </button>
+                                                    )}
+
                                                 </div>
                                             </td>
                                         </tr>

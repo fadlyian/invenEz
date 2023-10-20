@@ -7,7 +7,7 @@ import { Link } from '@inertiajs/react';
 
 export default function Authenticated({ user, header, children }) {
     const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
-
+    console.log(user)
     return (
         <div className="min-h-screen bg-gray-100">
             <nav className="bg-white border-b border-gray-100">
@@ -21,20 +21,41 @@ export default function Authenticated({ user, header, children }) {
                             </div>
 
                             <div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                                <NavLink href={route('dashboard')} active={route().current('dashboard')}>
+                                {/* <NavLink href={route('dashboard')} active={route().current('dashboard')} className='my-auto'>
+                                    Dashboard
+                                </NavLink> */}
+
+                                <NavLink href={route('dashboard')}
+                                className='' active={route().current('dashboard')}>
                                     Dashboard
                                 </NavLink>
-                                <NavLink href={route('admin')} active={route().current('admin')}>
-                                    Admin
+{/*
+                                <Link href={route('dashboard')}
+                                className='btn btn-neutral border-none hover:bg-gray-200 hover:border-none hover:text-black text-white my-auto' active={route().current('dashboard')}>
+                                    Dashboard
+                                    {route().current('dashboard')}
+                                </Link> */}
+                                <NavLink href={route('admin')}
+                                className='btn btn-neutral border-none text-white hover:bg-gray-200 hover:border-none hover:text-black my-auto' active={route().current('admin')}>
+                                    halodek
                                 </NavLink>
-                                <details className="dropdown my-2">
-                                    <summary className="m-1 btn">Admin</summary>
-                                    <ul className="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52">
-                                        <li><a href={route('user.view')}>Users</a></li>
-                                        <li><a href={route('role.view')}>Roles</a></li>
-                                        <li><a href={route('permission.view')}>Permission</a></li>
-                                    </ul>
-                                </details>
+
+                                {(user.can.user || user.can.role || user.can.permission) && (
+                                    <details className="dropdown my-auto">
+                                        <summary className="m-1 btn">Admin ⌵</summary>
+                                        <ul className="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52">
+                                            {user.can.user && (
+                                                <li><a href={route('user.view')}>Users</a></li>
+                                            )}
+                                            {user.can.role && (
+                                                <li><a href={route('role.view')}>Roles</a></li>
+                                            )}
+                                            {user.can.permission && (
+                                                <li><a href={route('permission.view')}>Permission</a></li>
+                                            )}
+                                        </ul>
+                                    </details>
+                                )}
                             </div>
                         </div>
 
@@ -47,7 +68,7 @@ export default function Authenticated({ user, header, children }) {
                                                 type="button"
                                                 className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150"
                                             >
-                                                {user.name}
+                                                {user.user.name}
 
                                                 <svg
                                                     className="ml-2 -mr-0.5 h-4 w-4"
@@ -106,12 +127,37 @@ export default function Authenticated({ user, header, children }) {
                         <ResponsiveNavLink href={route('dashboard')} active={route().current('dashboard')}>
                             Dashboard
                         </ResponsiveNavLink>
+                        {user.can.user && (
+                            <ResponsiveNavLink  href={route('user.view')} active={route().current('user.view')}>Users </ResponsiveNavLink>
+                        )}
+                        {user.can.role && (
+                            <ResponsiveNavLink href={route('role.view')} active={route().current('role.view')}>Roles</ResponsiveNavLink>
+                        )}
+                        {user.can.permission && (
+                            <ResponsiveNavLink href={route('permission.view')} active={route().current('permission.view')}>Permission</ResponsiveNavLink>
+                        )}
+                        {/* {(user.can.user || user.can.role || user.can.permission) && (
+                            <details className="dropdown my-2">
+                                <summary className="m-1 btn">Admin</summary>
+                                <ul className="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52">
+                                    {user.can.user && (
+                                        <li><a href={route('user.view')}>Users</a></li>
+                                    )}
+                                    {user.can.role && (
+                                        <li><a href={route('role.view')}>Roles</a></li>
+                                    )}
+                                    {user.can.permission && (
+                                        <li><a href={route('permission.view')}>Permission</a></li>
+                                    )}
+                                </ul>
+                            </details>
+                        )} */}
                     </div>
 
                     <div className="pt-4 pb-1 border-t border-gray-200">
                         <div className="px-4">
-                            <div className="font-medium text-base text-gray-800">{user.name}</div>
-                            <div className="font-medium text-sm text-gray-500">{user.email}</div>
+                            <div className="font-medium text-base text-gray-800">{user.user.name}</div>
+                            <div className="font-medium text-sm text-gray-500">{user.user.email}</div>
                         </div>
 
                         <div className="mt-3 space-y-1">

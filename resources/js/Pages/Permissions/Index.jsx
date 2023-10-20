@@ -1,3 +1,4 @@
+import ButtonCreate from "@/Components/ButtonCreate";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, router } from "@inertiajs/react";
 
@@ -21,11 +22,9 @@ export default function Index({ auth, permissions }) {
                 <div className="p-6 bg-white overflow-hidden shadow-sm sm:rounded-lg">
                     {/* button create permission */}
                     <div className="mb-4">
-                        <button className="btn btn-success">
-                            <a href={route("permission.create")}>
-                                create new permission
-                            </a>
-                        </button>
+                        <ButtonCreate href={route('permission.create')}>
+                            create new permission
+                        </ButtonCreate>
                     </div>
                     <div className="overflow-x-auto w-2/3">
                         <table className="table table-zebra">
