@@ -43,7 +43,7 @@ class HandleInertiaRequests extends Middleware
                     // 'role' => $user?->hasPermissionTo('role.view'),
                     // 'permission' => $user?->hasPermissionTo('permission.view'),
                     // 'product' => $user?->hasPermissionTo('product.view'),
-                    'admin' => fn() => $user?->hasPermissionTo('product.view'),
+                    'product' => fn() => $user?->hasPermissionTo('product.view'),
                     'user' => fn() => $user?->hasPermissionTo('user.view'),
                     'role' => fn() => $user?->hasPermissionTo('role.view'),
                     'permission' => fn() => $user?->hasPermissionTo('permission.view'),

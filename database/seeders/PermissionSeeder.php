@@ -49,7 +49,7 @@ class PermissionSeeder extends Seeder
         $role2->givePermissionTo('product.delete');
         $role2->givePermissionTo('user.view');
 
-        $role3 = Role::create(['name' => 'Super-Admin']);
+        $role3 = Role::create(['name' => 'super-admin']);
         $role3->givePermissionTo(Permission::all());
         // gets all permissions via Gate::before rule; see AuthServiceProvider
 
@@ -69,7 +69,7 @@ class PermissionSeeder extends Seeder
         $user->assignRole($role2);
 
         $user = \App\Models\User::factory()->create([
-            'name' => 'Super-Admin',
+            'name' => 'super-admin',
             'email' => 'superadmin@gmail.com',
             'password' => Hash::make('password'),
         ]);

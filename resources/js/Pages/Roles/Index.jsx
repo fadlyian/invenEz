@@ -1,8 +1,9 @@
 import ButtonCreate from "@/Components/ButtonCreate";
+import ButtonEdit from "@/Components/ButtonEdit";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, router } from "@inertiajs/react";
 
-export default function Index({ auth, roles }) {
+export default function Index({ auth, roles, can }) {
 
     return (
         <AuthenticatedLayout user={auth} header={<h2>Roles</h2>}>
@@ -22,9 +23,11 @@ export default function Index({ auth, roles }) {
                 <div className="p-6 bg-white overflow-hidden shadow-sm sm:rounded-lg">
                     {/* button create role */}
                     <div className="mb-4">
-                        <ButtonCreate href={route('role.create')}>
-                            create new role
-                        </ButtonCreate>
+                        {can.edit && (
+                            <ButtonCreate href={route('role.create')}>
+                                create new role
+                            </ButtonCreate>
+                        )}
                     </div>
                     <div className="overflow-x-auto w-2/3">
                         <table className="table table-zebra">
@@ -48,41 +51,27 @@ export default function Index({ auth, roles }) {
                                             <td>{role.name}</td>
                                             <td>{role.email}</td>
                                             <td>
-                                                <div className="flex gap-2 justify-center">
-                                                    <button className="btn btn-warning">
-                                                        <a href={route('role.edit', role.id)}>edit</a>
-                                                    </button>
-                                                    <button className="btn btn-error"
-                                                        onClick={() => document.getElementById('my_modal_2').showModal()}
-                                                        type="button"
-                                                    >
-                                                        delete
-                                                    </button>
+                                                <div className={`flex gap-2 justify-center`}>
+                                                    {can.edit && (
+                                                        <ButtonEdit href={route('role.edit', role.id)}>
+                                                            Edit
+                                                        </ButtonEdit>
+                                                    )}
+                                                    {can.delete && (
+                                                        <button className={`btn btn-error border-none hover:bg-red-300 hover:border-none ${role.name == "super-admin" ? "hidden" : ""}`}
+                                                            onClick={() => {
+                                                                if(confirm(`Are you sure want to delete this role "${role.name}" ?`)){
+                                                                    router.delete(route('role.destroy', role.id))
+                                                                }
+                                                            }}
+                                                            type="button"
+                                                        >
+                                                            delete
+                                                        </button>
+                                                    )}
                                                 </div>
                                             </td>
                                         </tr>
-
-                                        {/* MODAL DELETE */}
-                                        <dialog id="my_modal_2" className="modal">
-                                            <div className="modal-box">
-                                                <h3 className="font-bold text-lg">Are you sure you want to delete this role "{role.name}"?</h3>
-                                                {/* <p className="py-4">Are you sure you want to delete this role?</p> */}
-                                                <div className="modal-action flex gap-10 justify-end">
-                                                    <form method="dialog">
-                                                        {/* if there is a button in form, it will close the modal */}
-                                                        <button className="btn btn-success">cancel</button>
-                                                    </form>
-                                                    <form method="dialog">
-                                                        <button className="btn btn-error"
-                                                            onClick={() => router.delete(route('role.destroy', role.id))}
-                                                        >sure</button>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                            <form method="dialog" className="modal-backdrop">
-                                                <button>close</button>
-                                            </form>
-                                        </dialog>
                                         </>
                                     );
                                 })}

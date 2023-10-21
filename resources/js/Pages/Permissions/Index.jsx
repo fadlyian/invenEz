@@ -1,9 +1,9 @@
 import ButtonCreate from "@/Components/ButtonCreate";
+import ButtonEdit from "@/Components/ButtonEdit";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, router } from "@inertiajs/react";
 
-export default function Index({ auth, permissions }) {
-
+export default function Index({ auth, permissions, can }) {
     return (
         <AuthenticatedLayout user={auth} header={<h2>Permission</h2>}>
             <Head title="Permission" />
@@ -22,9 +22,11 @@ export default function Index({ auth, permissions }) {
                 <div className="p-6 bg-white overflow-hidden shadow-sm sm:rounded-lg">
                     {/* button create permission */}
                     <div className="mb-4">
-                        <ButtonCreate href={route('permission.create')}>
-                            create new permission
-                        </ButtonCreate>
+                        {can.edit && (
+                            <ButtonCreate href={route('permission.create')}>
+                                create new permission
+                            </ButtonCreate>
+                        )}
                     </div>
                     <div className="overflow-x-auto w-2/3">
                         <table className="table table-zebra">
@@ -38,7 +40,7 @@ export default function Index({ auth, permissions }) {
                             </thead>
                             <tbody>
                                 {/* row 1 */}
-                                {permissions.map((p, index) => {
+                                {permissions?.map((p, index) => {
                                     return (
                                         <>
 
@@ -50,40 +52,26 @@ export default function Index({ auth, permissions }) {
                                             <td>{p.email}</td>
                                             <td>
                                                 <div className="flex gap-2 justify-center">
-                                                    <button className="btn btn-warning">
-                                                        <a href={route('permission.edit', p.id)}>edit</a>
-                                                    </button>
-                                                    <button className="btn btn-error"
-                                                        onClick={() => document.getElementById('my_modal_2').showModal()}
-                                                        type="button"
-                                                    >
-                                                        delete
-                                                    </button>
+                                                    {can.edit && (
+                                                        <ButtonEdit href={route('permission.edit', p.id)}>
+                                                            edit
+                                                        </ButtonEdit>
+                                                    )}
+                                                    {can.delete && (
+                                                        <button className="btn btn-error border-none hover:bg-red-300 hover:border-none"
+                                                            type="button"
+                                                            onClick={() => {
+                                                                if(confirm(`Are you sure want to delete this permission "${p.name}" ?`)){
+                                                                    router.delete(route('permission.destroy', p.id))
+                                                                }
+                                                            }}
+                                                        >
+                                                            delete
+                                                        </button>
+                                                    )}
                                                 </div>
                                             </td>
                                         </tr>
-
-                                        {/* MODAL DELETE */}
-                                        <dialog id="my_modal_2" className="modal">
-                                            <div className="modal-box">
-                                                <h3 className="font-bold text-lg">Are you sure you want to delete this permission "{p.name}"?</h3>
-                                                {/* <p className="py-4">Are you sure you want to delete this permission?</p> */}
-                                                <div className="modal-action flex gap-10 justify-end">
-                                                    <form method="dialog">
-                                                        {/* if there is a button in form, it will close the modal */}
-                                                        <button className="btn btn-success">cancel</button>
-                                                    </form>
-                                                    <form method="dialog">
-                                                        <button className="btn btn-error"
-                                                            onClick={() => router.delete(route('permission.destroy', p.id))}
-                                                        >sure</button>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                            <form method="dialog" className="modal-backdrop">
-                                                <button>close</button>
-                                            </form>
-                                        </dialog>
                                         </>
                                     );
                                 })}

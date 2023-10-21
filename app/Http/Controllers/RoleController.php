@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
@@ -15,7 +16,12 @@ class RoleController extends Controller
      */
     public function index()
     {
+        $user = Auth::user();
         return Inertia::render('Roles/Index',[
+            'can' => [
+                'edit' => $user->hasPermissionTo('role.edit'),
+                'delete' => $user->hasPermissionTo('role.delete'),
+            ],
             'roles' => Role::all(),
         ]);
     }

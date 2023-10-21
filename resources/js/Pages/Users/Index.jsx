@@ -1,4 +1,5 @@
 import ButtonCreate from "@/Components/ButtonCreate";
+import ButtonEdit from "@/Components/ButtonEdit";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, router } from "@inertiajs/react";
 
@@ -11,11 +12,6 @@ export default function User({ auth, users, can }) {
                     {/* button create users */}
                     <div className="mb-4">
                         {can.edit && (
-                            // <button className="btn btn-success border-none hover:bg-emerald-300 hover:border-none">
-                            //     <a href={route("user.create")}>
-                            //         create new user
-                            //     </a>
-                            // </button>
                             <ButtonCreate href={route('user.create')}>
                                 create new user
                             </ButtonCreate>
@@ -28,7 +24,7 @@ export default function User({ auth, users, can }) {
                                 <tr>
                                     <th className="text-center">No</th>
                                     <th>Name</th>
-                                    <th>Job</th>
+                                    <th>email</th>
                                     {(can.delete || can.edit) && (
                                         <th className="text-center">Action</th>
                                     )}
@@ -46,16 +42,19 @@ export default function User({ auth, users, can }) {
                                             <td>{user.name}</td>
                                             <td>{user.email}</td>
                                             <td>
-                                                {/* <div className="flex gap-2 justify-center"> */}
-                                                <div className={`flex gap-2 justify-center ${user.name == "Super-Admin" ? "hidden" : ""}`}>
+                                                <div className={`flex gap-2 justify-center ${user.name == "super-admin" ? "hidden" : ""}`}>
                                                     {can.edit && (
-                                                        <button className="btn btn-warning">
-                                                            <a href={route('user.edit', user.id)}>edit</a>
-                                                        </button>
+                                                        <ButtonEdit href={route('user.edit', user.id)}>
+                                                            Edit
+                                                        </ButtonEdit>
                                                     )}
                                                     {can.delete && (
-                                                        <button className="btn btn-error"
-                                                            onClick={() => document.getElementById('my_modal_2').showModal()}
+                                                        <button className="btn btn-error border-none hover:bg-red-300 hover:border-none"
+                                                            onClick={() => {
+                                                                if(confirm(`Are you sure want to delete this user "${user.name}" ?`)){
+                                                                    router.delete(route('user.destroy', user.id))
+                                                                }
+                                                            }}
                                                             type="button"
                                                         >
                                                             delete
@@ -65,28 +64,6 @@ export default function User({ auth, users, can }) {
                                                 </div>
                                             </td>
                                         </tr>
-
-                                        {/* MODAL DELETE */}
-                                        <dialog id="my_modal_2" className="modal">
-                                            <div className="modal-box">
-                                                <h3 className="font-bold text-lg">Are you sure you want to delete this user "{user.name}"?</h3>
-                                                {/* <p className="py-4">Are you sure you want to delete this user?</p> */}
-                                                <div className="modal-action flex gap-10 justify-end">
-                                                    <form method="dialog">
-                                                        {/* if there is a button in form, it will close the modal */}
-                                                        <button className="btn btn-success">cancel</button>
-                                                    </form>
-                                                    <form method="dialog">
-                                                        <button className="btn btn-error"
-                                                            onClick={() => router.delete(route('user.destroy', user.id))}
-                                                        >sure</button>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                            <form method="dialog" className="modal-backdrop">
-                                                <button>close</button>
-                                            </form>
-                                        </dialog>
                                         </>
                                     );
                                 })}

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 use Spatie\Permission\Models\Permission;
 
@@ -14,8 +15,13 @@ class PermissionController extends Controller
      */
     public function index()
     {
+        $user = Auth::user();
         return Inertia::render('Permissions/Index',[
             'permissions' => Permission::all(),
+            'can' => [
+                'edit' => $user->hasPermissionTo('permission.edit'),
+                'delete' => $user->hasPermissionTo('permission.delete'),
+            ],
         ]);
     }
 
