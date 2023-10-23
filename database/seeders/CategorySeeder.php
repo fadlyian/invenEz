@@ -15,10 +15,10 @@ class CategorySeeder extends Seeder
     public function run(): void
     {
         $categories = [
-            'daging',
+            'lauk',
             'sayuran',
-            'buah',
             'bumbu',
+            'minuman'
         ];
         foreach($categories as $c)
         DB::table('categories')->insert([
