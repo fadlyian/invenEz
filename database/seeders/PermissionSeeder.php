@@ -17,6 +17,14 @@ class PermissionSeeder extends Seeder
      */
     public function run(): void
     {
+        $permission = [
+            'user',
+            'role',
+            'permission',
+            'supplier',
+            'category',
+        ];
+
         // Reset cached roles and permissions
         app()[PermissionRegistrar::class]->forgetCachedPermissions();
 
@@ -27,17 +35,31 @@ class PermissionSeeder extends Seeder
         Permission::create(['name' => 'product.publish']);
         Permission::create(['name' => 'product.unpublish']);
 
-        Permission::create(['name' => 'user.view']);
-        Permission::create(['name' => 'user.edit']);
-        Permission::create(['name' => 'user.delete']);
+        foreach($permission as $pm){
+            Permission::create(['name' => $pm.'.view']);
+            Permission::create(['name' => $pm.'.edit']);
+            Permission::create(['name' => $pm.'.delete']);
+        }
 
-        Permission::create(['name' => 'role.view']);
-        Permission::create(['name' => 'role.edit']);
-        Permission::create(['name' => 'role.delete']);
+        // Permission::create(['name' => 'user.view']);
+        // Permission::create(['name' => 'user.edit']);
+        // Permission::create(['name' => 'user.delete']);
 
-        Permission::create(['name' => 'permission.view']);
-        Permission::create(['name' => 'permission.edit']);
-        Permission::create(['name' => 'permission.delete']);
+        // Permission::create(['name' => 'role.view']);
+        // Permission::create(['name' => 'role.edit']);
+        // Permission::create(['name' => 'role.delete']);
+
+        // Permission::create(['name' => 'permission.view']);
+        // Permission::create(['name' => 'permission.edit']);
+        // Permission::create(['name' => 'permission.delete']);
+
+        // Permission::create(['name' => 'supplier.view']);
+        // Permission::create(['name' => 'supplier.edit']);
+        // Permission::create(['name' => 'supplier.delete']);
+
+        // Permission::create(['name' => 'category.view']);
+        // Permission::create(['name' => 'category.edit']);
+        // Permission::create(['name' => 'category.delete']);
 
         // create roles and assign existing permissions
         $role1 = Role::create(['name' => 'crew']);

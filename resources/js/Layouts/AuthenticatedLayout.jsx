@@ -29,12 +29,6 @@ export default function Authenticated({ user, header, children }) {
                                 className='' active={route().current('dashboard')}>
                                     Dashboard
                                 </NavLink>
-{/*
-                                <Link href={route('dashboard')}
-                                className='btn btn-neutral border-none hover:bg-gray-200 hover:border-none hover:text-black text-white my-auto' active={route().current('dashboard')}>
-                                    Dashboard
-                                    {route().current('dashboard')}
-                                </Link> */}
                                 <NavLink href={route('admin')}
                                 className='btn btn-neutral border-none text-white hover:bg-gray-200 hover:border-none hover:text-black my-auto' active={route().current('admin')}>
                                     halodek
@@ -172,7 +166,7 @@ export default function Authenticated({ user, header, children }) {
 
             {header && (
                 <header className="bg-white shadow">
-                    <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">{header}</div>
+                    <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 font-semibold text-xl text-gray-800 leading-tight">{header}</div>
                 </header>
             )}
 

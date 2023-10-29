@@ -4,6 +4,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\UserController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -88,6 +89,15 @@ Route::middleware('auth')->group(function () {
         Route::put('/{edit}', [PermissionController::class, 'update'])->name('permission.update');
         Route::delete('/{id}', [PermissionController::class, 'destroy'])->name('permission.destroy');
     })->middleware('permission:permission.view');
+
+    Route::prefix('suppliers')->group(function(){
+        Route::get('/', [SupplierController::class, 'index'])->middleware('permission:supplier.view')->name('supplier.view');
+        Route::get('/create', [SupplierController::class, 'create'])->middleware('permission:supplier.edit')->name('supplier.create');
+        Route::post('/store', [SupplierController::class, 'store'])->middleware('permission:supplier.edit')->name('supplier.store');
+        Route::get('/{id}/edit', [SupplierController::class, 'edit'])->middleware('permission:supplier.edit')->name('supplier.edit');
+        Route::patch('/{id}', [SupplierController::class, 'update'])->middleware('permission:supplier.edit')->name('supplier.update');
+        Route::delete('/delete/{id}', [SupplierController::class, 'destroy'])->middleware('permission:supplier.delete')->name('supplier.destroy');
+    });
 });
 
 require __DIR__.'/auth.php';
