@@ -50,7 +50,6 @@ export default function Category({ auth, categories, can }) {
                                                         <button className="btn btn-error border-none hover:bg-red-300 hover:border-none"
                                                             onClick={() => {
                                                                 if(confirm(`Are you sure want to delete this category "${category.name}" ?`)){
-                                                                    console.log(category.id)
                                                                     router.delete(route('category.destroy', category.id))
                                                                 }
                                                             }}

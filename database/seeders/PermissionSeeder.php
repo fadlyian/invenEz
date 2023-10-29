@@ -23,6 +23,7 @@ class PermissionSeeder extends Seeder
             'permission',
             'supplier',
             'category',
+            'cabang',
         ];
 
         // Reset cached roles and permissions

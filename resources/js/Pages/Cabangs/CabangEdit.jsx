@@ -2,35 +2,35 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head } from "@inertiajs/react";
 import { useForm } from '@inertiajs/react'
 
-export default function SupplierEdit({
+export default function CbangEdit({
     auth,
     id,
     can,
-    supplier=''
+    cabang=''
 }){
 
     const editmode = id !== null;
 
     // console.log(editmode);
     const { data, setData, post, patch, processing, errors } = useForm({
-        name: !editmode ? '' : supplier.name,
-        address: !editmode ? '' : supplier.address,
-        telp: !editmode ? '' : supplier.telp,
+        name: !editmode ? '' : cabang.name,
+        address: !editmode ? '' : cabang.address,
+        telp: !editmode ? '' : cabang.telp,
     })
 
     function submit(e) {
         if(!editmode){
             e.preventDefault()
-            post(route('supplier.store'))
+            post(route('cabang.store'))
         }else{
             e.preventDefault()
-            patch(route('supplier.update', id))
+            patch(route('cabang.update', id))
         }
     }
     return (
         <AuthenticatedLayout
         user={auth}
-        header={<h2>Supplier</h2>}
+        header={<h2>Cabang</h2>}
         >
 
             <Head title="Permissions Create" />
@@ -38,7 +38,7 @@ export default function SupplierEdit({
                 <div className="md:text-sm breadcrumbs mx-3">
                     <ul>
                         <li>
-                            <a href={route('supplier.view')}>supplier</a>
+                            <a href={route('cabang.view')}>cabang</a>
                         </li>
                         <li>
                             <a>Edit</a>

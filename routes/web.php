@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CabangController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PermissionController;
@@ -107,6 +108,15 @@ Route::middleware('auth')->group(function () {
         Route::get('/{id}/edit', [CategoryController::class, 'edit'])->middleware('permission:category.edit')->name('category.edit');
         Route::patch('/{id}', [CategoryController::class, 'update'])->middleware('permission:category.edit')->name('category.update');
         Route::delete('/delete/{id}', [CategoryController::class, 'destroy'])->middleware('permission:category.delete')->name('category.destroy');
+    });
+
+    Route::prefix('cabangs')->group(function(){
+        Route::get('/', [CabangController::class, 'index'])->middleware('permission:cabang.view')->name('cabang.view');
+        Route::get('/create', [CabangController::class, 'create'])->middleware('permission:cabang.edit')->name('cabang.create');
+        Route::post('/store', [CabangController::class, 'store'])->middleware('permission:cabang.edit')->name('cabang.store');
+        Route::get('/{id}/edit', [CabangController::class, 'edit'])->middleware('permission:cabang.edit')->name('cabang.edit');
+        Route::patch('/{id}', [CabangController::class, 'update'])->middleware('permission:cabang.edit')->name('cabang.update');
+        Route::delete('/delete/{id}', [CabangController::class, 'destroy'])->middleware('permission:cabang.delete')->name('cabang.destroy');
     });
 });
 
