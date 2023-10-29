@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ProfileController;
@@ -97,6 +98,15 @@ Route::middleware('auth')->group(function () {
         Route::get('/{id}/edit', [SupplierController::class, 'edit'])->middleware('permission:supplier.edit')->name('supplier.edit');
         Route::patch('/{id}', [SupplierController::class, 'update'])->middleware('permission:supplier.edit')->name('supplier.update');
         Route::delete('/delete/{id}', [SupplierController::class, 'destroy'])->middleware('permission:supplier.delete')->name('supplier.destroy');
+    });
+
+    Route::prefix('categories')->group(function(){
+        Route::get('/', [CategoryController::class, 'index'])->middleware('permission:category.view')->name('category.view');
+        Route::get('/create', [CategoryController::class, 'create'])->middleware('permission:category.edit')->name('category.create');
+        Route::post('/store', [CategoryController::class, 'store'])->middleware('permission:category.edit')->name('category.store');
+        Route::get('/{id}/edit', [CategoryController::class, 'edit'])->middleware('permission:category.edit')->name('category.edit');
+        Route::patch('/{id}', [CategoryController::class, 'update'])->middleware('permission:category.edit')->name('category.update');
+        Route::delete('/delete/{id}', [CategoryController::class, 'destroy'])->middleware('permission:category.delete')->name('category.destroy');
     });
 });
 

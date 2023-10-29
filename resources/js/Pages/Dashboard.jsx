@@ -20,7 +20,7 @@ export default function Dashboard({ auth }) {
                         <Link className='btn btn-neutral' href={route('supplier.view')}>
                             Barang
                         </Link>
-                        <Link className='btn btn-neutral' href={route('supplier.view')}>
+                        <Link className='btn btn-neutral' href={route('category.view')}>
                             Category
                         </Link>
                         <Link className='btn btn-neutral' href={route('supplier.view')}>

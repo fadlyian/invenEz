@@ -4,62 +4,76 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Inertia\Inertia;
 
 class CategoryController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        $user = Auth::user();
+        return Inertia::render('Categories/Category',[
+            'can' => [
+                'edit' => $user->hasPermissionTo('category.edit'),
+                'delete' => $user->hasPermissionTo('category.delete'),
+            ],
+            'categories' => Category::all(),
+        ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        $user = Auth::user();
+        return Inertia::render('Categories/CategoryEdit',[
+            'id' => null,
+            'can' => [
+                'edit' => $user->hasPermissionTo('category.edit'),
+                'delete' => $user->hasPermissionTo('category.delete'),
+            ],
+        ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+        ]);
+
+        Category::create([
+            'name' => $request->name,
+        ]);
+
+        return to_route('category.view');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Category $category)
+    public function edit($id)
     {
-        //
+        $user = Auth::user();
+        return Inertia::render('Categories/CategoryEdit',[
+            'id' => $id,
+            'can' => [
+                'edit' => $user->hasPermissionTo('category.edit'),
+                'delete' => $user->hasPermissionTo('category.delete'),
+            ],
+            'category' => Category::find($id),
+        ]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Category $category)
+    public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+        ]);
+
+        Category::find($id)->update($request->all());
+
+        return to_route('category.view');
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Category $category)
+    public function destroy($id)
     {
-        //
-    }
+        Category::findOrFail($id)->delete();
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Category $category)
-    {
-        //
+        return to_route('category.view');
     }
 }
