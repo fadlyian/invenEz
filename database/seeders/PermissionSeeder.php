@@ -22,6 +22,7 @@ class PermissionSeeder extends Seeder
             'role',
             'permission',
             'supplier',
+            'barang',
             'category',
             'cabang',
         ];

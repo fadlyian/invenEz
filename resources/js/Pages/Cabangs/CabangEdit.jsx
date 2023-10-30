@@ -2,7 +2,7 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head } from "@inertiajs/react";
 import { useForm } from '@inertiajs/react'
 
-export default function CbangEdit({
+export default function CabangEdit({
     auth,
     id,
     can,

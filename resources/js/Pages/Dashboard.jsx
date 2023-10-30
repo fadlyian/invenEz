@@ -17,7 +17,7 @@ export default function Dashboard({ auth }) {
                         <Link className='btn btn-neutral' href={route('supplier.view')}>
                             Supplier
                         </Link>
-                        <Link className='btn btn-neutral' href={route('supplier.view')}>
+                        <Link className='btn btn-neutral' href={route('barang.view')}>
                             Barang
                         </Link>
                         <Link className='btn btn-neutral' href={route('category.view')}>

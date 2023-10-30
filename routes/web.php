@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BarangController;
 use App\Http\Controllers\CabangController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
@@ -92,6 +93,7 @@ Route::middleware('auth')->group(function () {
         Route::delete('/{id}', [PermissionController::class, 'destroy'])->name('permission.destroy');
     })->middleware('permission:permission.view');
 
+    // SUPPLIER
     Route::prefix('suppliers')->group(function(){
         Route::get('/', [SupplierController::class, 'index'])->middleware('permission:supplier.view')->name('supplier.view');
         Route::get('/create', [SupplierController::class, 'create'])->middleware('permission:supplier.edit')->name('supplier.create');
@@ -101,6 +103,17 @@ Route::middleware('auth')->group(function () {
         Route::delete('/delete/{id}', [SupplierController::class, 'destroy'])->middleware('permission:supplier.delete')->name('supplier.destroy');
     });
 
+    // BARANG
+    Route::prefix('barangs')->group(function(){
+        Route::get('/', [BarangController::class, 'index'])->middleware('permission:barang.view')->name('barang.view');
+        Route::get('/create', [BarangController::class, 'create'])->middleware('permission:barang.edit')->name('barang.create');
+        Route::post('/store', [BarangController::class, 'store'])->middleware('permission:barang.edit')->name('barang.store');
+        Route::get('/{id}/edit', [BarangController::class, 'edit'])->middleware('permission:barang.edit')->name('barang.edit');
+        Route::patch('/{id}', [BarangController::class, 'update'])->middleware('permission:barang.edit')->name('barang.update');
+        Route::delete('/delete/{id}', [BarangController::class, 'destroy'])->middleware('permission:barang.delete')->name('barang.destroy');
+    });
+
+    // CATEGORY
     Route::prefix('categories')->group(function(){
         Route::get('/', [CategoryController::class, 'index'])->middleware('permission:category.view')->name('category.view');
         Route::get('/create', [CategoryController::class, 'create'])->middleware('permission:category.edit')->name('category.create');
@@ -110,6 +123,7 @@ Route::middleware('auth')->group(function () {
         Route::delete('/delete/{id}', [CategoryController::class, 'destroy'])->middleware('permission:category.delete')->name('category.destroy');
     });
 
+    // CABANG
     Route::prefix('cabangs')->group(function(){
         Route::get('/', [CabangController::class, 'index'])->middleware('permission:cabang.view')->name('cabang.view');
         Route::get('/create', [CabangController::class, 'create'])->middleware('permission:cabang.edit')->name('cabang.create');
