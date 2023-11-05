@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BarangController;
+use App\Http\Controllers\BarangMasukController;
 use App\Http\Controllers\CabangController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
@@ -131,6 +132,13 @@ Route::middleware('auth')->group(function () {
         Route::get('/{id}/edit', [CabangController::class, 'edit'])->middleware('permission:cabang.edit')->name('cabang.edit');
         Route::patch('/{id}', [CabangController::class, 'update'])->middleware('permission:cabang.edit')->name('cabang.update');
         Route::delete('/delete/{id}', [CabangController::class, 'destroy'])->middleware('permission:cabang.delete')->name('cabang.destroy');
+    });
+
+    // BARANG MASUk
+    Route::prefix('barangMasuk')->group(function(){
+        Route::get('/', [BarangMasukController::class, 'index'])->name('');
+        Route::get('/create', [BarangMasukController::class, 'create'])->name('barangMasuk.create');
+        Route::post('/store', [BarangMasukController::class, 'store'])->name('barangMasuk.store');
     });
 });
 

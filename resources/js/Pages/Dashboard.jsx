@@ -26,6 +26,9 @@ export default function Dashboard({ auth }) {
                         <Link className='btn btn-neutral' href={route('cabang.view')}>
                             Cabang
                         </Link>
+                        <Link className='btn btn-neutral' href={route('barangMasuk.create')}>
+                            Barang Masuk
+                        </Link>
                     </div>
                 </div>
             </div>
