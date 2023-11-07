@@ -10,8 +10,8 @@ export default function Dashboard({ auth }) {
         >
             <Head title="Dashboard" />
 
-            <div className="max-w-7xl mx-auto my-3 sm:px-6 lg:px-8">
-                <div className="p-6 bg-white overflow-hidden shadow-sm sm:rounded-lg">
+            <div className=" sm:px-6 lg:px-8">
+                <div className=" bg-white overflow-hidden shadow-sm sm:rounded-lg">
 
                     <div className="grid grid-cols-2 justify-items-stretch gap-2">
                         <Link className='btn btn-neutral' href={route('supplier.view')}>
