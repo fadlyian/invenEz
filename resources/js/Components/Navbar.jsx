@@ -82,7 +82,7 @@ export default function Navbar({header, user})
                 </div>
                 <div className="drawer-side">
                     <label htmlFor="my-drawer" aria-label="close sidebar" className="drawer-overlay"></label>
-                    <ul className="menu w-80 min-h-full bg-base-200 text-base-content inline-block absolute">
+                    <ul className="menu w-72 min-h-full bg-base-200 text-base-content inline-block absolute">
                     {/* Sidebar content here */}
                     <div className="flex items-center gap-3 flex-row px-3 py-4 border-b-2">
                         <svg
@@ -97,19 +97,19 @@ export default function Navbar({header, user})
                     </div>
                     {link.map((item, index) => {
                         return (
-                            // <a href={route(item.route)}>
-                            //     <li key={index} className="flex flex-row items-center text-xl">
-                            //         <span dangerouslySetInnerHTML={{ __html: item.icon }}></span>
-                            //         {item.name}
-                            //     </li>
-                            // </a>
-
-                            <li key={index} className="flex flex-row items-center text-xl">
-                                <a href={route(item.route)}>
+                            <a href={route(item.route)}>
+                                <li key={index} className="flex flex-row items-center text-xl">
                                     <span dangerouslySetInnerHTML={{ __html: item.icon }}></span>
                                     {item.name}
-                                </a>
-                            </li>
+                                </li>
+                            </a>
+
+                            // <li key={index} className="flex flex-row items-center text-xl">
+                            //     <a href={route(item.route)}>
+                            //         <span dangerouslySetInnerHTML={{ __html: item.icon }}></span>
+                            //         {item.name}
+                            //     </a>
+                            // </li>
                         )
                     })}
                     </ul>

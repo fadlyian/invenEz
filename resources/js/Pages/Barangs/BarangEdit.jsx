@@ -38,9 +38,9 @@ export default function barangEdit({
         header={<h2>Barang</h2>}
         >
 
-            <Head title="Permissions Create" />
-            <div className="max-w-7xl mx-auto my-3 sm:px-6 lg:px-8">
-                <div className="md:text-sm breadcrumbs mx-3">
+            <Head title="Barang Create" />
+            <div className="bg-white overflow-hidden">
+                {/* <div className="md:text-sm breadcrumbs mx-3">
                     <ul>
                         <li>
                             <a href={route('barang.view')}>barang</a>
@@ -49,8 +49,8 @@ export default function barangEdit({
                             <a>Edit</a>
                         </li>
                     </ul>
-                </div>
-                <div className="p-6 bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                </div> */}
+                <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                     <form onSubmit={submit} className="flex flex-col gap-3">
                         {/* NAME */}
                         <div>

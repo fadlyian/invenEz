@@ -31,9 +31,9 @@ export default function CategoryEdit({
         header={<h2>Category</h2>}
         >
 
-            <Head title="Permissions Create" />
-            <div className="max-w-7xl mx-auto my-3 sm:px-6 lg:px-8">
-                <div className="md:text-sm breadcrumbs mx-3">
+            <Head title="Category Create" />
+            <div className="bg-white overflow-hidden">
+                {/* <div className="md:text-sm breadcrumbs ">
                     <ul>
                         <li>
                             <a href={route('category.view')}>category</a>
@@ -42,8 +42,8 @@ export default function CategoryEdit({
                             <a>Edit</a>
                         </li>
                     </ul>
-                </div>
-                <div className="p-6 bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                </div> */}
+                <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                     <form onSubmit={submit} className="flex flex-col gap-3">
                         {/* NAME */}
                         <div>

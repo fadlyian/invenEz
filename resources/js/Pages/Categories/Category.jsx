@@ -6,9 +6,9 @@ import { Head, router } from "@inertiajs/react";
 export default function Category({ auth, categories, can }) {
     return (
         <AuthenticatedLayout user={auth} header={<h2>Categories</h2>}>
-            <Head title="Users" />
-            <div className="max-w-7xl mx-auto my-3 sm:px-6 lg:px-8">
-                <div className="p-6 bg-white overflow-hidden shadow-sm sm:rounded-lg">
+            <Head title="Category" />
+            <div className="">
+                <div className="bg-white overflow-hidden">
                     {/* button create category */}
                     <div className="mb-4">
                         {can.edit && (
@@ -18,7 +18,7 @@ export default function Category({ auth, categories, can }) {
                         )}
                     </div>
                     <div className="overflow-x-auto ">
-                        <table className="table table-zebra">
+                        <table className="table-zebra">
                             {/* head */}
                             <thead>
                                 <tr>

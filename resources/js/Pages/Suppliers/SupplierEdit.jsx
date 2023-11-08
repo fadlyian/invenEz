@@ -33,9 +33,9 @@ export default function SupplierEdit({
         header={<h2>Supplier</h2>}
         >
 
-            <Head title="Permissions Create" />
-            <div className="max-w-7xl mx-auto my-3 sm:px-6 lg:px-8">
-                <div className="md:text-sm breadcrumbs mx-3">
+            <Head title="Supplier Create" />
+            <div className="bg-white overflow-hidden">
+                {/* <div className="md:text-sm breadcrumbs mx-3">
                     <ul>
                         <li>
                             <a href={route('supplier.view')}>supplier</a>
@@ -44,8 +44,8 @@ export default function SupplierEdit({
                             <a>Edit</a>
                         </li>
                     </ul>
-                </div>
-                <div className="p-6 bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                </div> */}
+                <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                     <form onSubmit={submit} className="flex flex-col gap-3">
                         {/* NAME */}
                         <div>
