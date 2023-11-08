@@ -6,23 +6,21 @@ import { Head, router } from "@inertiajs/react";
 export default function Supplier({ auth, suppliers, can }) {
     return (
         <AuthenticatedLayout user={auth} header={<h2>Supplier</h2>}>
-            <Head title="Users" />
-            <div className="max-w-7xl mx-auto my-3 sm:px-6 lg:px-8">
-                <div className="p-6 bg-white overflow-hidden shadow-sm sm:rounded-lg">
+            <Head title="Supplier" />
+            <div className="">
+                <div className="bg-white overflow-hidden">
                     {/* button create supplier */}
                     <div className="mb-4">
                         {can.edit && (
-                            <ButtonCreate href={route('supplier.create')}>
+                            <ButtonCreate    href={route('supplier.create')}>
                                 create new supplier
                             </ButtonCreate>
                         )}
                     </div>
                     <div className="overflow-x-auto">
-                        <table className="table table-zebra">
-                            {/* head */}
+                        <table className="table-zebra table-fixed md:table md:table-zebra">
                             <thead>
                                 <tr>
-                                    <th className="text-center">No</th>
                                     <th>Name</th>
                                     <th>Address</th>
                                     <th>Telp</th>
@@ -32,14 +30,10 @@ export default function Supplier({ auth, suppliers, can }) {
                                 </tr>
                             </thead>
                             <tbody>
-                                {/* row 1 */}
                                 {suppliers.map((supplier, index) => {
                                     return (
                                         <>
                                         <tr key={index}>
-                                            <th className="text-center">
-                                                {index + 1}
-                                            </th>
                                             <td>{supplier.name}</td>
                                             <td>{supplier.address}</td>
                                             <td>{supplier.telp}</td>
