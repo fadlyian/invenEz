@@ -6,9 +6,9 @@ import { Head, router } from "@inertiajs/react";
 export default function Barang({ auth, barangs, can }) {
     return (
         <AuthenticatedLayout user={auth} header={<h2>Barang</h2>}>
-            <Head title="Users" />
-            <div className="max-w-7xl mx-auto my-3 sm:px-6 lg:px-8">
-                <div className="p-6 bg-white overflow-hidden shadow-sm sm:rounded-lg">
+            <Head title="Barang" />
+            <div className="">
+                <div className="bg-white overflow-hidden">
                     {/* button create barang */}
                     <div className="mb-4">
                         {can.edit && (
@@ -18,10 +18,10 @@ export default function Barang({ auth, barangs, can }) {
                         )}
                     </div>
                     <div className="overflow-x-auto">
-                        <table className="table table-zebra">
+                        <table className="table-zebra table-fixed md:table md:table-zebra">
                             {/* head */}
                             <thead>
-                                <tr>
+                                <tr className="border-2 md:border-none">
                                     <th className="text-center">No</th>
                                     <th>Name</th>
                                     <th>Price</th>
@@ -42,7 +42,7 @@ export default function Barang({ auth, barangs, can }) {
                                                 {index + 1}
                                             </th>
                                             <td>{barang.name}</td>
-                                            <td>{barang.price.toLocaleString("id-ID", {style:"currency", currency:"IDR"})}</td>
+                                            <td>{barang.price.toLocaleString("id-ID", {currency:"IDR"})}</td>
                                             <td>{barang.satuan}</td>
                                             <td>{barang.stok}</td>
                                             <td>

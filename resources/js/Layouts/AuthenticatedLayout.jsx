@@ -33,9 +33,9 @@ export default function Authenticated({ user, header, children }) {
             <div className="flex h-full">
                 <SideBar></SideBar>
 
-                <div className=" w-full">
+                <div className="bg-red-400 w-full">
                     <Navbar header={header} user={user}></Navbar>
-                    <main className="p-6">
+                    <main className="p-2 md:p-6">
                         {children}
                     </main>
                 </div>

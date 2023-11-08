@@ -12,7 +12,7 @@ export default function Supplier({ auth, suppliers, can }) {
                     {/* button create supplier */}
                     <div className="mb-4">
                         {can.edit && (
-                            <ButtonCreate    href={route('supplier.create')}>
+                            <ButtonCreate href={route('supplier.create')}>
                                 create new supplier
                             </ButtonCreate>
                         )}
@@ -20,7 +20,7 @@ export default function Supplier({ auth, suppliers, can }) {
                     <div className="overflow-x-auto">
                         <table className="table-zebra table-fixed md:table md:table-zebra">
                             <thead>
-                                <tr>
+                                <tr className="border-2 md:border-none">
                                     <th>Name</th>
                                     <th>Address</th>
                                     <th>Telp</th>

@@ -6,9 +6,9 @@ import { Head, router } from "@inertiajs/react";
 export default function Cabang({ auth, cabangs, can }) {
     return (
         <AuthenticatedLayout user={auth} header={<h2>Cabang</h2>}>
-            <Head title="Users" />
-            <div className="max-w-7xl mx-auto my-3 sm:px-6 lg:px-8">
-                <div className="p-6 bg-white overflow-hidden shadow-sm sm:rounded-lg">
+            <Head title="Cabang" />
+            <div className="">
+                <div className="bg-white overflow-hidden">
                     {/* button create cabang */}
                     <div className="mb-4">
                         {can.edit && (
@@ -18,11 +18,10 @@ export default function Cabang({ auth, cabangs, can }) {
                         )}
                     </div>
                     <div className="overflow-x-auto">
-                        <table className="table table-zebra">
+                        <table className="table-zebra table-fixed md:table md:table-zebra">
                             {/* head */}
                             <thead>
-                                <tr>
-                                    <th className="text-center">No</th>
+                                <tr className="border-2 md:border-none">
                                     <th>Name</th>
                                     <th>Address</th>
                                     <th>Telp</th>
@@ -36,10 +35,7 @@ export default function Cabang({ auth, cabangs, can }) {
                                 {cabangs.map((cabang, index) => {
                                     return (
                                         <>
-                                        <tr key={index}>
-                                            <th className="text-center">
-                                                {index + 1}
-                                            </th>
+                                        <tr key={index} >
                                             <td>{cabang.name}</td>
                                             <td>{cabang.address}</td>
                                             <td>{cabang.telp}</td>
